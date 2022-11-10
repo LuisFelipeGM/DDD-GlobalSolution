@@ -6,6 +6,7 @@ public class Carro {
 
 	private int idCarro;
 	private int idEmpresa;
+	private int nrSerie;
 	private String nmMarca;
 	private String nmModelo;
 	private String nrPlaca;
@@ -14,10 +15,12 @@ public class Carro {
 	public Carro() {
 	}
 
-	public Carro(int idCarro, int idEmpresa, String nmMarca, String nmModelo, String nrPlaca, LocalDate dtFabricacao) {
+	public Carro(int idCarro, int idEmpresa, int nrSerie, String nmMarca, String nmModelo, String nrPlaca,
+			LocalDate dtFabricacao) {
 		super();
 		this.idCarro = idCarro;
 		this.idEmpresa = idEmpresa;
+		this.nrSerie = nrSerie;
 		this.nmMarca = nmMarca;
 		this.nmModelo = nmModelo;
 		this.nrPlaca = nrPlaca;
@@ -34,6 +37,14 @@ public class Carro {
 
 	public int getIdEmpresa() {
 		return idEmpresa;
+	}
+
+	public int getNrSerie() {
+		return nrSerie;
+	}
+
+	public void setNrSerie(int nrSerie) {
+		this.nrSerie = nrSerie;
 	}
 
 	public void setIdEmpresa(int idEmpresa) {
