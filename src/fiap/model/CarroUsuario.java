@@ -7,7 +7,6 @@ public class CarroUsuario {
 	private int idCarroUsuario;
 	private int idCarro;
 	private int idUsuario;
-	private int nrSerie;
 	private LocalDate dtInicio;
 	private LocalDate dtFim;
 
@@ -19,7 +18,6 @@ public class CarroUsuario {
 		this.idCarroUsuario = idCarroUsuario;
 		this.idCarro = idCarro;
 		this.idUsuario = idUsuario;
-		this.nrSerie = nrSerie;
 		this.dtInicio = dtInicio;
 		this.dtFim = dtFim;
 	}
@@ -46,14 +44,6 @@ public class CarroUsuario {
 
 	public void setIdUsuario(int idUsuario) {
 		this.idUsuario = idUsuario;
-	}
-
-	public int getNrSerie() {
-		return nrSerie;
-	}
-
-	public void setNrSerie(int nrSerie) {
-		this.nrSerie = nrSerie;
 	}
 
 	public LocalDate getDtInicio() {
