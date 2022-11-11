@@ -1,3 +1,9 @@
+/**
+ * Classe para objetos do tipo InfoCarro
+ * @author Luis Felipe
+ * @version 1.0
+ * @since 11/11/2022
+ */
 package fiap.model;
 
 import java.time.LocalDate;

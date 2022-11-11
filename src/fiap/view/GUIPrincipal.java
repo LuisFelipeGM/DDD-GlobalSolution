@@ -1,3 +1,8 @@
+/**Classe de Interface GUI Principal
+ * @author Luis Felipe
+ * @version 1.0
+ * @since 11/11/2022
+ */
 package fiap.view;
 
 import java.awt.*;
@@ -18,6 +23,11 @@ public class GUIPrincipal extends JFrame {
 		definirEventos();
 	}
 	
+	/**Metodo para inicializar todos os componentes do GUI Principal
+	* @author Luis Felipe
+	* @param null 
+	* @return void
+	*/
 	private void inicializarComponentes() {
 		setTitle("Janela Principal");
 		setBounds(0, 0, 800, 600);
@@ -70,6 +80,11 @@ public class GUIPrincipal extends JFrame {
 		
 	}
 	
+	/**Metodo para definir os eventos do GUI Principal
+	* @author Luis Felipe
+	* @param null 
+	* @return void
+	*/
 	private void definirEventos() {
 		miSair.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

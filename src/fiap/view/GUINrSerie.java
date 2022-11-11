@@ -1,3 +1,8 @@
+/**Classe de Interface GUI NrSerie
+ * @author Luis Felipe
+ * @version 1.0
+ * @since 11/11/2022
+ */
 package fiap.view;
 
 import java.awt.*;
@@ -5,7 +10,7 @@ import java.awt.event.*;
 import java.util.ArrayList;
 import javax.swing.*;
 
-import fiap.controller.EmpresaController;
+import fiap.controller.ConsultaController;
 
 @SuppressWarnings({ "serial", "unused" })
 public class GUINrSerie extends JPanel{
@@ -19,6 +24,11 @@ public class GUINrSerie extends JPanel{
 		definirEventos();
 	}
 	
+	/**Metodo para inicializar todos os componentes do GUI NrSerie
+	* @author Luis Felipe
+	* @param null 
+	* @return void
+	*/
 	private void inicializarComponentes() {
 		setLayout(null);
 		setBackground(Color.LIGHT_GRAY);
@@ -52,10 +62,23 @@ public class GUINrSerie extends JPanel{
 
 	}
 	
+	/**Metodo para definir os eventos do GUI NrSerie
+	* @author Luis Felipe
+	* @param null 
+	* @return void
+	*/
 	private void definirEventos() {
 
 		btPesquisa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				ConsultaController consulta = new ConsultaController();
+				int nrSerie = Integer.parseInt(tfNrSerie.getText());
+				String dados = consulta.listaUmUsuario(nrSerie);
+				if (dados == null) {
+					JOptionPane.showMessageDialog(null, "Número de Série Inválido!");
+				} else {
+					JOptionPane.showMessageDialog(null, dados);
+				}
 				
 				
 			}

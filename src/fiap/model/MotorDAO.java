@@ -1,3 +1,8 @@
+/**Classe para o CRUD dos objetos do tipo Motor no Banco de Dados utilizando a classe Conexao
+ * @author Luis Felipe
+ * @version 1.0
+ * @since 11/11/2022
+ */
 package fiap.model;
 
 import java.sql.*;
@@ -21,6 +26,11 @@ public class MotorDAO implements IDAO{
 		this.con = con;
 	}
 	
+	/**Metodo para inserir um objeto Motor no Banco de dados
+	* @author Luis Felipe
+	* @param null
+	* @return String - com o resultado da operação 
+	*/
 	public String inserir(Object obj) {
 		motor = (Motor) obj;
 		String sql = "INSERT INTO T_GS_MOTOR (ID_MOTOR, ID_INFO_CARRO, DS_MOTOR_VIDA_UTIL) "
@@ -41,7 +51,11 @@ public class MotorDAO implements IDAO{
 		}
 	}
 	
-	
+	/**Metodo para alterar um objeto Motor no Banco de dados
+	* @author Luis Felipe
+	* @param null
+	* @return String - com o resultado da operação 
+	*/
 	public String alterar(Object obj) {
 		motor = (Motor) obj;
 		String sql = "UPDATE T_GS_MOTOR SET ID_INFO_CARRO = ?, DS_MOTOR_VIDA_UTIL = ? WHERE ID_MOTOR = ? ";
@@ -61,6 +75,11 @@ public class MotorDAO implements IDAO{
 
 	}
 	
+	/**Metodo para excluir um objeto Motor no Banco de dados
+	* @author Luis Felipe
+	* @param null
+	* @return String - com o resultado da operação 
+	*/
 	public String excluir(Object obj) {
 		motor = (Motor) obj;
 		String sql = "DELETE FROM T_GS_MOTOR WHERE ID_MOTOR = ?";
@@ -77,6 +96,11 @@ public class MotorDAO implements IDAO{
 		}
 	}
 	
+	/**Metodo para consultar o Banco de Dados e trazer um objeto do tipo Motor
+	* @author Luis Felipe
+	* @param int - id do objeto no Banco de Dados
+	* @return List<String> - com a lista com todos os valores do objeto 
+	*/
 	public List<String> listarUm(int id){
 		String sql = "SELECT * FROM T_GS_MOTOR WHERE ID_MOTOR = ?";
 		List<String> resul = new ArrayList<String>();

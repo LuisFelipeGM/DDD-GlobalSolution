@@ -1,4 +1,12 @@
+/**
+ * Classe para objetos do tipo Bateria
+ * @author Luis Felipe
+ * @version 1.0
+ * @since 11/11/2022
+ */
 package fiap.model;
+
+import javax.swing.JOptionPane;
 
 public class Bateria {
 
@@ -38,7 +46,15 @@ public class Bateria {
 	}
 
 	public void setNrBateriaCarga(int nrBateriaCarga) {
-		this.nrBateriaCarga = nrBateriaCarga;
+		try {
+			if (nrBateriaCarga > 0 && nrBateriaCarga < 1000) {
+				this.nrBateriaCarga = nrBateriaCarga;
+			} else {
+				throw new Exception("Valor Invalido!\nColoque apenas 3 caracteres na Carga da Bateria");
+			}
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
 	}
 
 	public int getDsBateriaVidaUtil() {
@@ -46,7 +62,16 @@ public class Bateria {
 	}
 
 	public void setDsBateriaVidaUtil(int dsBateriaVidaUtil) {
-		this.dsBateriaVidaUtil = dsBateriaVidaUtil;
+		try {
+			if (dsBateriaVidaUtil > 0 && dsBateriaVidaUtil < 1000) {
+				this.dsBateriaVidaUtil = dsBateriaVidaUtil;
+			} else {
+				throw new Exception("Valor Invalido!\nColoque apenas 3 caracteres na Vida Util da Bateria");
+			}
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
+		
 	}
 
 }

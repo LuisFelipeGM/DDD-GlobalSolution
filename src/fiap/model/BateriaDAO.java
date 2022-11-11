@@ -1,3 +1,8 @@
+/**Classe para o CRUD dos objetos do tipo Bateria no Banco de Dados utilizando a classe Conexao
+ * @author Luis Felipe
+ * @version 1.0
+ * @since 11/11/2022
+ */
 package fiap.model;
 
 import java.sql.*;
@@ -21,6 +26,11 @@ public class BateriaDAO implements IDAO{
 		this.con = con;
 	}
 	
+	/**Metodo para inserir um objeto Bateria no Banco de dados
+	* @author Luis Felipe
+	* @param null
+	* @return String - com o resultado da operação 
+	*/
 	public String inserir(Object obj) {
 		bateria = (Bateria) obj;
 		String sql = "INSERT INTO T_GS_BATERIA (ID_BATERIA, ID_INFO_CARRO, NR_BATERIA_CARGA, DS_BATERIA_VIDA_UTIL) "
@@ -42,7 +52,11 @@ public class BateriaDAO implements IDAO{
 		}
 	}
 	
-	
+	/**Metodo para alterar um objeto Bateria no Banco de dados
+	* @author Luis Felipe
+	* @param null
+	* @return String - com o resultado da operação 
+	*/
 	public String alterar(Object obj) {
 		bateria = (Bateria) obj;
 		String sql = "UPDATE T_GS_BATERIA SET ID_INFO_CARRO = ?, NR_BATERIA_CARGA = ?, DS_BATERIA_VIDA_UTIL = ? WHERE ID_BATERIA = ? ";
@@ -63,6 +77,11 @@ public class BateriaDAO implements IDAO{
 
 	}
 	
+	/**Metodo para excluir um objeto Bateria no Banco de dados
+	* @author Luis Felipe
+	* @param null
+	* @return String - com o resultado da operação 
+	*/
 	public String excluir(Object obj) {
 		bateria = (Bateria) obj;
 		String sql = "DELETE FROM T_GS_BATERIA WHERE ID_BATERIA = ?";
@@ -79,6 +98,11 @@ public class BateriaDAO implements IDAO{
 		}
 	}
 	
+	/**Metodo para consultar o Banco de Dados e trazer um objeto do tipo Bateria
+	* @author Luis Felipe
+	* @param int - id do objeto no Banco de Dados
+	* @return List<String> - com a lista com todos os valores do objeto
+	*/
 	public List<String> listarUm(int id){
 		String sql = "SELECT * FROM T_GS_BATERIA WHERE ID_BATERIA = ?";
 		List<String> resul = new ArrayList<String>();

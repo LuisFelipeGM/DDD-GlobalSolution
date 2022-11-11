@@ -1,11 +1,18 @@
+/**Classe de Interface GUI Admin
+ * @author Luis Felipe
+ * @version 1.0
+ * @since 11/11/2022
+ */
 package fiap.view;
 
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.*;
 
-import fiap.controller.EmpresaController;
+import fiap.controller.AdminController;
 
 @SuppressWarnings({ "serial", "unused" })
 public class GUIAdmin extends JPanel{
@@ -19,6 +26,11 @@ public class GUIAdmin extends JPanel{
 		definirEventos();
 	}
 	
+	/**Metodo para inicializar todos os componentes do GUI Admin
+	* @author Luis Felipe
+	* @param null 
+	* @return void
+	*/
 	private void inicializarComponentes() {
 		setLayout(null);
 		setBackground(Color.LIGHT_GRAY);
@@ -48,11 +60,11 @@ public class GUIAdmin extends JPanel{
 		lbNomeAdmin.setBounds(25, 65, 100, 25);
 		tfNomeAdmin.setBounds(130, 65, 200, 25);
 		
-		lbSenha.setBounds(25, 100, 100, 25);
-		tfSenha.setBounds(130, 100, 200, 25);
+		lbEmail.setBounds(25, 100, 100, 25);
+		tfEmail.setBounds(130, 100, 200, 25);
 		
-		lbEmail.setBounds(25, 135, 100, 25);
-		tfEmail.setBounds(130, 135, 200, 25);
+		lbSenha.setBounds(25, 135, 100, 25);
+		tfSenha.setBounds(130, 135, 200, 25);
 				
 		
 		//set Bounds Botoes
@@ -79,32 +91,89 @@ public class GUIAdmin extends JPanel{
 
 	}
 	
+	/**Metodo para inicializar todos os componentes do GUI Admin
+	* @author Luis Felipe
+	* @param null 
+	* @return void
+	*/
 	private void definirEventos() {
 
 		btPesquisa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				
+				AdminController ac = new AdminController();
+				List<String> dados = new ArrayList<String>();
+				if (tfIdAdmin.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "Preencha o ID do Administrador");
+					tfIdAdmin.requestFocus();
+				} else {
+					int id = Integer.parseInt(tfIdAdmin.getText());
+					dados = ac.listaUmAdm(id);
+					if (dados.isEmpty() == false) {
+						tfNomeAdmin.setText(dados.get(1));
+						tfEmail.setText(dados.get(2));
+						tfSenha.setText(dados.get(3));
+					} else {
+						JOptionPane.showMessageDialog(null, "Registro inexistente");
+					}
+					
+				}
 			}
 		});
 		
 		btNovo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				AdminController ac = new AdminController();
+				if (tfIdAdmin.getText().equals("") || tfNomeAdmin.getText().equals("") || 
+						tfSenha.getText().equals("") || tfEmail.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "Preencha todos os campos");
+				} else {
+					int id = Integer.parseInt(tfIdAdmin.getText());
+					JOptionPane.showMessageDialog(null, ac.insereAdm(id, tfNomeAdmin.getText(), 
+							tfEmail.getText(), tfSenha.getText()));
+					
+					tfIdAdmin.setText("");
+					tfNomeAdmin.setText("");
+					tfEmail.setText("");
+					tfSenha.setText("");
+				}
 				
 			}
 		});
 		
 		btAtualiza.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				AdminController ac = new AdminController();
+				if (tfIdAdmin.getText().equals("") || tfNomeAdmin.getText().equals("") || 
+						tfSenha.getText().equals("") || tfEmail.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "Preencha todos os campos");
+				} else {
+					int id = Integer.parseInt(tfIdAdmin.getText());
+					JOptionPane.showMessageDialog(null, ac.alteraAdm(id, tfNomeAdmin.getText(), 
+							tfEmail.getText(), tfSenha.getText()));
+					
+					tfIdAdmin.setText("");
+					tfNomeAdmin.setText("");
+					tfEmail.setText("");
+					tfSenha.setText("");
+				}
 				
 			}
 		});
 		
 		btApaga.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				AdminController ac = new AdminController();
+				if (tfIdAdmin.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "Preencha o ID do Administrador");
+				} else {
+					int id = Integer.parseInt(tfIdAdmin.getText());
+					JOptionPane.showMessageDialog(null, ac.excluiAdm(id));
+					
+					tfIdAdmin.setText("");
+					tfNomeAdmin.setText("");
+					tfEmail.setText("");
+					tfSenha.setText("");
+				}
 			}
 		});
 		

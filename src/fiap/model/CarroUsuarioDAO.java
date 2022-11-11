@@ -1,3 +1,8 @@
+/**Classe para o CRUD dos objetos do tipo CarroUsuario no Banco de Dados utilizando a classe Conexao
+ * @author Luis Felipe
+ * @version 1.0
+ * @since 11/11/2022
+ */
 package fiap.model;
 
 import java.sql.*;
@@ -22,6 +27,11 @@ public class CarroUsuarioDAO implements IDAO{
 		this.con = con;
 	}
 	
+	/**Metodo para inserir um objeto CarroUsuario no Banco de dados
+	* @author Luis Felipe
+	* @param null
+	* @return String - com o resultado da operação 
+	*/
 	public String inserir(Object obj) {
 		carroUsuario = (CarroUsuario) obj;
 		String sql = "INSERT INTO T_GS_CARRO_USUARIO (ID_CARRO_USUARIO, ID_CARRO, ID_USUARIO, DT_INICIO, DT_FIM) "
@@ -52,7 +62,11 @@ public class CarroUsuarioDAO implements IDAO{
 		}
 	}
 	
-	
+	/**Metodo para alterar um objeto CarroUsuario no Banco de dados
+	* @author Luis Felipe
+	* @param null
+	* @return String - com o resultado da operação 
+	*/
 	public String alterar(Object obj) {
 		carroUsuario = (CarroUsuario) obj;
 		String sql = "UPDATE T_GS_CARRO_USUARIO SET ID_CARRO = ?, ID_USUARIO = ?, "
@@ -82,6 +96,11 @@ public class CarroUsuarioDAO implements IDAO{
 
 	}
 	
+	/**Metodo para excluir um objeto CarroUsuario no Banco de dados
+	* @author Luis Felipe
+	* @param null
+	* @return String - com o resultado da operação 
+	*/
 	public String excluir(Object obj) {
 		carroUsuario = (CarroUsuario) obj;
 		String sql = "DELETE FROM T_GS_CARRO_USUARIO WHERE ID_CARRO_USUARIO = ?";
@@ -98,6 +117,11 @@ public class CarroUsuarioDAO implements IDAO{
 		}
 	}
 	
+	/**Metodo para consultar o Banco de Dados e trazer um objeto do tipo CarroUsuario
+	* @author Luis Felipe
+	* @param int - id do objeto no Banco de Dados
+	* @return List<String> - com a lista com todos os valores do objeto
+	*/
 	public List<String> listarUm(int id){
 		String sql = "SELECT ID_CARRO_USUARIO, ID_CARRO, ID_USUARIO, "
 				+ "TO_CHAR(DT_INICIO, 'DD/MM/YYYY') DT_INICIO, TO_CHAR(DT_FIM, 'DD/MM/YYYY') DT_FIM FROM T_GS_CARRO_USUARIO WHERE ID_CARRO = ?";

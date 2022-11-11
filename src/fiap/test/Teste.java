@@ -116,6 +116,13 @@ public class Teste {
 		//JOptionPane.showMessageDialog(null, cuc.excluiCarroUsuario(1));
 		
 		//JOptionPane.showMessageDialog(null, cuc.listaUmCarroUsuario(1));
+		
+		
+		// CONSULTA
+		
+		//ConsultaController conc = new ConsultaController();
+		
+		//JOptionPane.showMessageDialog(null, conc.listaUmUsuario(2134));
 
 		
 	}

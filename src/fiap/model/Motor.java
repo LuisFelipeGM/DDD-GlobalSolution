@@ -1,4 +1,12 @@
+/**
+ * Classe para objetos do tipo Motor
+ * @author Luis Felipe
+ * @version 1.0
+ * @since 11/11/2022
+ */
 package fiap.model;
+
+import javax.swing.JOptionPane;
 
 public class Motor {
 
@@ -36,7 +44,15 @@ public class Motor {
 	}
 
 	public void setDsMotorVidaUtil(int dsMotorVidaUtil) {
-		this.dsMotorVidaUtil = dsMotorVidaUtil;
+		try {
+			if (dsMotorVidaUtil > 0 && dsMotorVidaUtil < 1000000000) {
+				this.dsMotorVidaUtil = dsMotorVidaUtil;
+			} else {
+				throw new Exception("Valor Invalido!\nColoque apenas 9 caracteres na Vida Util do Motor");
+			}
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
 	}
 
 }

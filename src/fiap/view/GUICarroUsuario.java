@@ -1,11 +1,19 @@
+/**Classe de Interface GUI CarroUsuario
+ * @author Luis Felipe
+ * @version 1.0
+ * @since 11/11/2022
+ */
 package fiap.view;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.*;
 
-import fiap.controller.EmpresaController;
+import fiap.controller.CarroUsuarioController;
 
 @SuppressWarnings({ "serial", "unused" })
 public class GUICarroUsuario extends JPanel{
@@ -19,6 +27,11 @@ public class GUICarroUsuario extends JPanel{
 		definirEventos();
 	}
 	
+	/**Metodo para inicializar todos os componentes do GUI CarroUsuario
+	* @author Luis Felipe
+	* @param null 
+	* @return void
+	*/
 	private void inicializarComponentes() {
 		setLayout(null);
 		setBackground(Color.LIGHT_GRAY);
@@ -87,24 +100,112 @@ public class GUICarroUsuario extends JPanel{
 
 	}
 	
+	/**Metodo para inicializar todos os componentes do GUI CarroUsuario
+	* @author Luis Felipe
+	* @param null 
+	* @return void
+	*/
 	private void definirEventos() {
 
 		btPesquisa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				CarroUsuarioController cuc = new CarroUsuarioController();
+				List<String> dados = new ArrayList<String>();
+				if (tfIdCarroUsuario.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "Preencha o ID da Empresa");
+					tfIdCarroUsuario.requestFocus();
+				} else {
+					int id = Integer.parseInt(tfIdCarroUsuario.getText());
+					dados = cuc.listaUmCarroUsuario(id);
+					if (dados.isEmpty() == false) {
+						tfIdCarro.setText(dados.get(1));
+						tfIdUsuario.setText(dados.get(2));
+						tfDtInicio.setText(dados.get(3));
+						tfDtFim.setText(dados.get(4));
+					} else {
+						JOptionPane.showMessageDialog(null, "Registro inexistente");
+					}
+
+				}
 				
 			}
 		});
 		
 		btNovo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				CarroUsuarioController cuc = new CarroUsuarioController();
+				if (tfIdCarroUsuario.getText().equals("") || tfIdCarro.getText().equals("") ||
+						tfIdUsuario.getText().equals("") || tfDtInicio.getText().equals("") ||
+						tfDtFim.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "Preencha todos os campos");
+				} else {
+					int idCarroUsuario = Integer.parseInt(tfIdCarroUsuario.getText());
+					int idCarro = Integer.parseInt(tfIdCarro.getText());
+					int idUsuario = Integer.parseInt(tfIdUsuario.getText());
+					
+					
+					String aux = tfDtInicio.getText();
+					String data = aux.substring(6, 10) + "-";
+					data += aux.substring(3, 5) + "-";
+					data += aux.substring(0, 2);
+					LocalDate dataI = LocalDate.parse(data);
+					
+					
+					aux = tfDtFim.getText();
+					String data2 = aux.substring(6, 10) + "-";
+					data2 += aux.substring(3, 5) + "-";
+					data2 += aux.substring(0, 2);
+					LocalDate dataF = LocalDate.parse(data2);
+					
+					
+					
+					JOptionPane.showMessageDialog(null, cuc.insereCarroUsuario(idCarroUsuario, idCarro, idUsuario, dataI, dataF));
+					
+					tfIdCarroUsuario.setText("");
+					tfIdCarro.setText("");
+					tfIdUsuario.setText("");
+					tfDtInicio.setText("");
+					tfDtFim.setText("");
+					
+				}
 				
 			}
 		});
 		
 		btAtualiza.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				CarroUsuarioController cuc = new CarroUsuarioController();
+				if (tfIdCarroUsuario.getText().equals("") || tfIdCarro.getText().equals("") ||
+						tfIdUsuario.getText().equals("") || tfDtInicio.getText().equals("") ||
+						tfDtFim.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "Preencha todos os campos");
+				} else {
+					int idCarroUsuario = Integer.parseInt(tfIdCarroUsuario.getText());
+					int idCarro = Integer.parseInt(tfIdCarro.getText());
+					int idUsuario = Integer.parseInt(tfIdUsuario.getText());
+					
+					String aux = tfDtInicio.getText();
+					String data = aux.substring(6, 10) + "-";
+					data += aux.substring(3, 5) + "-";
+					data += aux.substring(0, 2);
+					LocalDate dataI = LocalDate.parse(data);
+					
+					
+					aux = tfDtFim.getText();
+					String data2 = aux.substring(6, 10) + "-";
+					data2 += aux.substring(3, 5) + "-";
+					data2 += aux.substring(0, 2);
+					LocalDate dataF = LocalDate.parse(data2);
+					
+					JOptionPane.showMessageDialog(null, cuc.alteraCarroUsuario(idCarroUsuario, idCarro, idUsuario, dataI, dataF));
+					
+					tfIdCarroUsuario.setText("");
+					tfIdCarro.setText("");
+					tfIdUsuario.setText("");
+					tfDtInicio.setText("");
+					tfDtFim.setText("");
+					
+				}
 				
 				
 			}
@@ -112,7 +213,21 @@ public class GUICarroUsuario extends JPanel{
 		
 		btApaga.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				CarroUsuarioController cuc = new CarroUsuarioController();
+				if (tfIdCarroUsuario.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "Preencha o ID do Carro Usuario");
+				} else {
+					int idCarroUsuario = Integer.parseInt(tfIdCarroUsuario.getText());
+					
+					JOptionPane.showMessageDialog(null, cuc.excluiCarroUsuario(idCarroUsuario));
+					
+					tfIdCarroUsuario.setText("");
+					tfIdCarro.setText("");
+					tfIdUsuario.setText("");
+					tfDtInicio.setText("");
+					tfDtFim.setText("");
+					
+				}
 			}
 		});
 		

@@ -1,12 +1,20 @@
+/**Classe de Interface GUI InfoCarro
+ * @author Luis Felipe
+ * @version 1.0
+ * @since 11/11/2022
+ */
 package fiap.view;
 
 
 import java.awt.*;
 import java.awt.event.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.*;
 
-import fiap.controller.UsuarioController;
+import fiap.controller.InfoCarroController;
 
 @SuppressWarnings({ "serial", "unused" })
 public class GUIInfoCarro extends JPanel{
@@ -23,6 +31,11 @@ public class GUIInfoCarro extends JPanel{
 		definirEventos();
 	}
 	
+	/**Metodo para inicializar todos os componentes do GUI InfoCarro
+	* @author Luis Felipe
+	* @param null 
+	* @return void
+	*/
 	private void inicializarComponentes() {
 		setLayout(null);
 		setBackground(Color.LIGHT_GRAY);
@@ -112,10 +125,35 @@ public class GUIInfoCarro extends JPanel{
 		
 	}
 	
+	/**Metodo para definir os eventos do GUI InfoCarro
+	* @author Luis Felipe
+	* @param null 
+	* @return void
+	*/
 	private void definirEventos() {
 
 		btPesquisa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				InfoCarroController icc = new InfoCarroController();
+				List<String> dados = new ArrayList<String>();
+				if (tfIdInfoCarro.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "Preencha o ID do Info Carro");
+					tfIdInfoCarro.requestFocus();
+				} else {
+					int id = Integer.parseInt(tfIdInfoCarro.getText());
+					dados = icc.listaUmaEmpresa(id);
+					if (dados.isEmpty() == false) {
+						tfIdCarro.setText(dados.get(1));
+						tfNrPneuCalibragem.setText(dados.get(2));
+						tfPneuVidaUtil.setText(dados.get(3));
+						tfSuspensaoVidaUtil.setText(dados.get(4));
+						tfQuilometragem.setText(dados.get(5));
+						tfFreioVidaUtil.setText(dados.get(6));
+						tfDtUltManutencao.setText(dados.get(7));
+					} else {
+						JOptionPane.showMessageDialog(null, "Registro inexistente");
+					}
+				}
 				
 				
 			}
@@ -123,21 +161,101 @@ public class GUIInfoCarro extends JPanel{
 		
 		btNovo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				InfoCarroController icc = new InfoCarroController();
+				if (tfIdInfoCarro.getText().equals("") || tfIdCarro.getText().equals("") || 
+						tfNrPneuCalibragem.getText().equals("") || tfPneuVidaUtil.getText().equals("") ||
+						tfSuspensaoVidaUtil.getText().equals("") || tfQuilometragem.getText().equals("") || 
+						tfFreioVidaUtil.getText().equals("") || tfDtUltManutencao.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "Preencha todos os campos");
+				} else {
+					int idInfoCarro = Integer.parseInt(tfIdInfoCarro.getText());
+					int IdCarro = Integer.parseInt(tfIdCarro.getText());
+					int NrPneuCalibragem = Integer.parseInt(tfNrPneuCalibragem.getText());
+					int PneuVidaUtil = Integer.parseInt(tfPneuVidaUtil.getText());
+					int SuspensaoVidaUtil = Integer.parseInt(tfSuspensaoVidaUtil.getText());
+					int Quilometragem = Integer.parseInt(tfQuilometragem.getText());
+					int FreioVidaUtil = Integer.parseInt(tfFreioVidaUtil.getText());
+					
+					String aux = tfDtUltManutencao.getText();
+					String data = aux.substring(6, 10) + "-";
+					data += aux.substring(3, 5) + "-";
+					data += aux.substring(0, 2);
+					LocalDate dataM = LocalDate.parse(data);
+					
+					JOptionPane.showMessageDialog(null, icc.insereInfoCarro(idInfoCarro, IdCarro, NrPneuCalibragem, 
+							PneuVidaUtil, SuspensaoVidaUtil, Quilometragem, FreioVidaUtil, dataM));
+					
+					tfIdInfoCarro.setText("");
+					tfIdCarro.setText("");
+					tfNrPneuCalibragem.setText("");
+					tfPneuVidaUtil.setText("");
+					tfSuspensaoVidaUtil.setText("");
+					tfQuilometragem.setText("");
+					tfFreioVidaUtil.setText("");
+					tfDtUltManutencao.setText("");
+				}
 				
 			}
 		});
 		
 		btAtualiza.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				InfoCarroController icc = new InfoCarroController();
+				if (tfIdInfoCarro.getText().equals("") || tfIdCarro.getText().equals("") || 
+						tfNrPneuCalibragem.getText().equals("") || tfPneuVidaUtil.getText().equals("") ||
+						tfSuspensaoVidaUtil.getText().equals("") || tfQuilometragem.getText().equals("") || 
+						tfFreioVidaUtil.getText().equals("") || tfDtUltManutencao.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "Preencha todos os campos");
+				} else {
+					int idInfoCarro = Integer.parseInt(tfIdInfoCarro.getText());
+					int IdCarro = Integer.parseInt(tfIdCarro.getText());
+					int NrPneuCalibragem = Integer.parseInt(tfNrPneuCalibragem.getText());
+					int PneuVidaUtil = Integer.parseInt(tfPneuVidaUtil.getText());
+					int SuspensaoVidaUtil = Integer.parseInt(tfSuspensaoVidaUtil.getText());
+					int Quilometragem = Integer.parseInt(tfQuilometragem.getText());
+					int FreioVidaUtil = Integer.parseInt(tfFreioVidaUtil.getText());
+					
+					String aux = tfDtUltManutencao.getText();
+					String data = aux.substring(6, 10) + "-";
+					data += aux.substring(3, 5) + "-";
+					data += aux.substring(0, 2);
+					LocalDate dataM = LocalDate.parse(data);
+					
+					JOptionPane.showMessageDialog(null, icc.alteraInfoCarro(idInfoCarro, IdCarro, NrPneuCalibragem, 
+							PneuVidaUtil, SuspensaoVidaUtil, Quilometragem, FreioVidaUtil, dataM));
+					
+					tfIdInfoCarro.setText("");
+					tfIdCarro.setText("");
+					tfNrPneuCalibragem.setText("");
+					tfPneuVidaUtil.setText("");
+					tfSuspensaoVidaUtil.setText("");
+					tfQuilometragem.setText("");
+					tfFreioVidaUtil.setText("");
+					tfDtUltManutencao.setText("");
+				}
 				
 			}
 		});
 		
 		btApaga.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				InfoCarroController icc = new InfoCarroController();
+				if (tfIdInfoCarro.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "Preencha o ID do Info Carro");
+				} else {
+					int idInfoCarro = Integer.parseInt(tfIdInfoCarro.getText());
+					
+					JOptionPane.showMessageDialog(null, icc.excluiInfoCarro(idInfoCarro));
+					
+					tfIdInfoCarro.setText("");
+					tfIdCarro.setText("");
+					tfNrPneuCalibragem.setText("");
+					tfPneuVidaUtil.setText("");
+					tfSuspensaoVidaUtil.setText("");
+					tfQuilometragem.setText("");
+					tfFreioVidaUtil.setText("");
+					tfDtUltManutencao.setText("");
+				}
 			}
 		});
 		
