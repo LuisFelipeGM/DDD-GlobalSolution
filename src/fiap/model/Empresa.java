@@ -1,5 +1,7 @@
 package fiap.model;
 
+import javax.swing.JOptionPane;
+
 public class Empresa {
 
 	private int idEmpresa;
@@ -40,7 +42,27 @@ public class Empresa {
 	}
 
 	public void setNrCnpj(String nrCnpj) {
-		this.nrCnpj = nrCnpj;
+		try {
+			// 0 1 2 3 4 5 6 7 8 9 10 11 12 13
+			// 1 2 3 4 5 6 7 8 9 1 2  3  4  5
+			// 12.345.678/9123-45
+			if (nrCnpj.length() == 18 ) {
+				this.nrCnpj = nrCnpj;
+			} else if (nrCnpj.length() == 14) {
+				String formato;
+				formato = nrCnpj.substring(0, 2) + ".";
+				formato += nrCnpj.substring(2, 5) + ".";
+				formato += nrCnpj.substring(5, 8) + "/";
+				formato += nrCnpj.substring(8, 12) + "-";
+				formato += nrCnpj.substring(12, 14);
+				this.nrCnpj = formato;
+			} else {
+				throw new Exception("CNPJ Invalido!\nColoque o CNPJ sem espaços, e sem caracteres especiais!(14 Caracteres)");
+			}
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
+		
 	}
 
 	public String getDsEmail() {

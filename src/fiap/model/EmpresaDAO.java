@@ -32,9 +32,9 @@ public class EmpresaDAO implements IDAO{
 			PreparedStatement ps = getCon().prepareStatement(sql);
 			ps.setInt(1, empresa.getIdEmpresa());
 			ps.setString(2, empresa.getNmEmpresa());
-			ps.setString(3, empresa.getNmEmpresa());
-			ps.setString(4, empresa.getNmEmpresa());
-			ps.setString(5, empresa.getNmEmpresa());
+			ps.setString(3, empresa.getNrCnpj());
+			ps.setString(4, empresa.getDsEmail());
+			ps.setString(5, empresa.getDsSenha());
 			if (ps.executeUpdate() > 0) {
 				return "Inserido com Sucesso";
 			} else {
@@ -53,9 +53,9 @@ public class EmpresaDAO implements IDAO{
 		try {
 			PreparedStatement ps = getCon().prepareStatement(sql);
 			ps.setString(1, empresa.getNmEmpresa());
-			ps.setString(2, empresa.getNmEmpresa());
-			ps.setString(3, empresa.getNmEmpresa());
-			ps.setString(4, empresa.getNmEmpresa());
+			ps.setString(2, empresa.getNrCnpj());
+			ps.setString(3, empresa.getDsEmail());
+			ps.setString(4, empresa.getDsSenha());
 			ps.setInt(5, empresa.getIdEmpresa());
 			if (ps.executeUpdate() > 0) {
 				return "Alterado com sucesso";

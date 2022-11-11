@@ -34,7 +34,7 @@ public class TelefoneDAO implements IDAO{
 			ps.setInt(5, telefone.getNrTelefone());
 			ps.setString(6, telefone.getStTelefone());
 			if (ps.executeUpdate() > 0) {
-				return "Inserido com Sucesso";
+				return "Inserido com sucesso";
 			} else {
 				return "Erro ao inserir";
 			}

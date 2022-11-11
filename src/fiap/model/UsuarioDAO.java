@@ -82,7 +82,10 @@ public class UsuarioDAO implements IDAO{
 	}
 	
 	public List<String> listarUm(int id){
-		String sql = "SELECT * FROM T_GS_USUARIO WHERE ID_USUARIO = ?";
+		String sql = "SELECT U.ID_USUARIO, U.NM_COMPLETO, U.DS_EMAIL, U.DS_SENHA, U.NR_CPF, "
+				+ "TEL.NR_DDD, TEL.NR_DDI, TEL.NR_TELEFONE, TEL.ST_TELEFONE "
+				+ "FROM T_GS_USUARIO U LEFT JOIN T_GS_TELEFONE TEL "
+				+ "ON (U.ID_USUARIO = TEL.ID_USUARIO) WHERE U.ID_USUARIO = ?";
 		List<String> resul = new ArrayList<String>();
 		try {
 			PreparedStatement ps = getCon().prepareStatement(sql);
@@ -93,7 +96,11 @@ public class UsuarioDAO implements IDAO{
 				resul.add(rs.getString("NM_COMPLETO"));
 				resul.add(rs.getString("DS_EMAIL"));
 				resul.add(rs.getString("DS_SENHA"));
-				resul.add(rs.getString("DS_CPF"));
+				resul.add(rs.getString("NR_CPF"));
+				resul.add(rs.getString("NR_DDD"));
+				resul.add(rs.getString("NR_DDI"));
+				resul.add(rs.getString("NR_TELEFONE"));
+				resul.add(rs.getString("ST_TELEFONE"));
 				return resul;
 			} else {
 				return resul;
