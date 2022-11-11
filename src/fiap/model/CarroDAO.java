@@ -1,3 +1,8 @@
+/**Classe para o CRUD dos objetos do tipo Carro no Banco de Dados utilizando a classe Conexao
+ * @author Luis Felipe
+ * @version 1.0
+ * @since 11/11/2022
+ */
 package fiap.model;
 
 import java.sql.*;
@@ -22,6 +27,11 @@ public class CarroDAO implements IDAO {
 		this.con = con;
 	}
 	
+	/**Metodo para inserir um objeto Carro no Banco de dados
+	* @author Luis Felipe
+	* @param null
+	* @return String - com o resultado da operação 
+	*/
 	public String inserir(Object obj) {
 		carro = (Carro) obj;
 		String sql = "INSERT INTO T_GS_CARRO (ID_CARRO, ID_EMPRESA, NM_MARCA, NM_MODELO, NR_PLACA, NR_SERIE, DT_FABRICACAO) "
@@ -51,7 +61,11 @@ public class CarroDAO implements IDAO {
 		}
 	}
 	
-	
+	/**Metodo para alterar um objeto Carro no Banco de dados
+	* @author Luis Felipe
+	* @param null
+	* @return String - com o resultado da operação 
+	*/
 	public String alterar(Object obj) {
 		carro = (Carro) obj;
 		String sql = "UPDATE T_GS_CARRO SET ID_EMPRESA = ?, NM_MARCA = ?, NM_MODELO = ?, NR_PLACA = ?, NR_SERIE = ?, "
@@ -80,6 +94,11 @@ public class CarroDAO implements IDAO {
 
 	}
 	
+	/**Metodo para excluir um objeto Carro no Banco de dados
+	* @author Luis Felipe
+	* @param null
+	* @return String - com o resultado da operação 
+	*/
 	public String excluir(Object obj) {
 		carro = (Carro) obj;
 		String sql = "DELETE FROM T_GS_CARRO WHERE ID_CARRO = ?";
@@ -96,6 +115,11 @@ public class CarroDAO implements IDAO {
 		}
 	}
 	
+	/**Metodo para consultar o Banco de Dados e trazer um objeto do tipo Carro
+	* @author Luis Felipe
+	* @param int - id do objeto no Banco de Dados
+	* @return List<String> - com a lista com todos os valores do objeto
+	*/
 	public List<String> listarUm(int id){
 		String sql = "SELECT ID_CARRO, ID_EMPRESA, NM_MARCA, NM_MODELO, NR_PLACA, NR_SERIE, "
 				+ "TO_CHAR(DT_FABRICACAO, 'DD/MM/YYYY') DT_FABRICACAO FROM T_GS_CARRO WHERE ID_CARRO = ?";

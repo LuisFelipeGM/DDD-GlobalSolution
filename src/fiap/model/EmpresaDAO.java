@@ -1,3 +1,8 @@
+/**Classe para o CRUD dos objetos do tipo Empresa no Banco de Dados utilizando a classe Conexao
+ * @author Luis Felipe
+ * @version 1.0
+ * @since 11/11/2022
+ */
 package fiap.model;
 
 import java.sql.Connection;
@@ -24,6 +29,11 @@ public class EmpresaDAO implements IDAO{
 		this.con = con;
 	}
 	
+	/**Metodo para inserir um objeto Empresa no Banco de dados
+	* @author Luis Felipe
+	* @param null
+	* @return String - com o resultado da operação 
+	*/
 	public String inserir(Object obj) {
 		empresa = (Empresa) obj;
 		String sql = "INSERT INTO T_GS_EMPRESA (ID_EMPRESA, NM_EMPRESA, NR_CNPJ, DS_EMAIL, DS_SENHA) "
@@ -46,7 +56,11 @@ public class EmpresaDAO implements IDAO{
 		}
 	}
 	
-	
+	/**Metodo para alterar um objeto Empresa no Banco de dados
+	* @author Luis Felipe
+	* @param null
+	* @return String - com o resultado da operação 
+	*/
 	public String alterar(Object obj) {
 		empresa = (Empresa) obj;
 		String sql = "UPDATE T_GS_EMPRESA SET NM_EMPRESA = ?, NR_CNPJ = ?, DS_EMAIL = ?, DS_SENHA = ? WHERE ID_EMPRESA = ? ";
@@ -68,6 +82,11 @@ public class EmpresaDAO implements IDAO{
 
 	}
 	
+	/**Metodo para excluir um objeto Empresa no Banco de dados
+	* @author Luis Felipe
+	* @param null
+	* @return String - com o resultado da operação 
+	*/
 	public String excluir(Object obj) {
 		empresa = (Empresa) obj;
 		String sql = "DELETE FROM T_GS_EMPRESA WHERE ID_EMPRESA = ?";
@@ -84,6 +103,11 @@ public class EmpresaDAO implements IDAO{
 		}
 	}
 	
+	/**Metodo para consultar o Banco de Dados e trazer um objeto do tipo InfoCarro
+	* @author Luis Felipe
+	* @param int - id do objeto no Banco de Dados
+	* @return List<String> - com a lista com todos os valores do objeto
+	*/
 	public List<String> listarUm(int id){
 		String sql = "SELECT * FROM T_GS_EMPRESA WHERE ID_EMPRESA = ?";
 		List<String> resul = new ArrayList<String>();

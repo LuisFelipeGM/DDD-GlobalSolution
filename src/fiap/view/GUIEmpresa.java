@@ -1,8 +1,15 @@
+/**Classe de Interface GUI Empresa
+ * @author Luis Felipe
+ * @version 1.0
+ * @since 11/11/2022
+ */
 package fiap.view;
 
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.*;
 
 import fiap.controller.EmpresaController;
@@ -19,6 +26,11 @@ public class GUIEmpresa extends JPanel{
 		definirEventos();
 	}
 	
+	/**Metodo para inicializar todos os componentes do GUI Empresa
+	* @author Luis Felipe
+	* @param null 
+	* @return void
+	*/
 	private void inicializarComponentes() {
 		setLayout(null);
 		setBackground(Color.LIGHT_GRAY);
@@ -50,11 +62,11 @@ public class GUIEmpresa extends JPanel{
 		lbNomeEmpresa.setBounds(25, 65, 100, 25);
 		tfNomeEmpresa.setBounds(130, 65, 200, 25);
 		
-		lbSenha.setBounds(25, 100, 100, 25);
-		tfSenha.setBounds(130, 100, 200, 25);
+		lbEmail.setBounds(25, 100, 100, 25);
+		tfEmail.setBounds(130, 100, 200, 25);
 		
-		lbEmail.setBounds(25, 135, 100, 25);
-		tfEmail.setBounds(130, 135, 200, 25);
+		lbSenha.setBounds(25, 135, 100, 25);
+		tfSenha.setBounds(130, 135, 200, 25);
 		
 		lbNrCNPJ.setBounds(25, 170, 100, 25);
 		tfNrCNPJ.setBounds(130, 170, 200, 25);
@@ -87,31 +99,98 @@ public class GUIEmpresa extends JPanel{
 
 	}
 	
+	/**Metodo para inicializar todos os componentes do GUI Empresa
+	* @author Luis Felipe
+	* @param null 
+	* @return void
+	*/
 	private void definirEventos() {
 
 		btPesquisa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				EmpresaController ec = new EmpresaController();
+				List<String> dados = new ArrayList<String>();
+				if (tfIdEmpresa.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "Preencha o ID da Empresa");
+					tfIdEmpresa.requestFocus();
+				} else {
+					int id = Integer.parseInt(tfIdEmpresa.getText());
+					dados = ec.listaUmaEmpresa(id);
+					if (dados.isEmpty() == false) {
+						tfNomeEmpresa.setText(dados.get(1));
+						tfEmail.setText(dados.get(4));
+						tfSenha.setText(dados.get(3));
+						tfNrCNPJ.setText(dados.get(2));
+					} else {
+						JOptionPane.showMessageDialog(null, "Registro inexistente");
+					}
+				}
 				
 			}
 		});
 		
 		btNovo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				EmpresaController ec = new EmpresaController();
+				if (tfIdEmpresa.getText().equals("") || tfNomeEmpresa.getText().equals("") ||
+						tfEmail.getText().equals("") || tfSenha.getText().equals("") || 
+						tfNrCNPJ.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "Preencha todos os campos");
+				} else {
+					int id = Integer.parseInt(tfIdEmpresa.getText());
+					JOptionPane.showMessageDialog(null, ec.insereEmpresa(id, tfNomeEmpresa.getText(), 
+							tfNrCNPJ.getText(), tfEmail.getText(), tfSenha.getText()));
+					
+					tfIdEmpresa.setText("");
+					tfNomeEmpresa.setText("");
+					tfEmail.setText("");
+					tfSenha.setText("");
+					tfNrCNPJ.setText("");
+					
+				}
 				
 			}
 		});
 		
 		btAtualiza.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				EmpresaController ec = new EmpresaController();
+				if (tfIdEmpresa.getText().equals("") || tfNomeEmpresa.getText().equals("") ||
+						tfEmail.getText().equals("") || tfSenha.getText().equals("") || 
+						tfNrCNPJ.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "Preencha todos os campos");
+				} else {
+					int id = Integer.parseInt(tfIdEmpresa.getText());
+					JOptionPane.showMessageDialog(null, ec.alteraEmpresa(id, tfNomeEmpresa.getText(), 
+							tfNrCNPJ.getText(), tfEmail.getText(), tfSenha.getText()));
+					
+					tfIdEmpresa.setText("");
+					tfNomeEmpresa.setText("");
+					tfEmail.setText("");
+					tfSenha.setText("");
+					tfNrCNPJ.setText("");
+					
+				}
 				
 			}
 		});
 		
 		btApaga.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				EmpresaController ec = new EmpresaController();
+				if (tfIdEmpresa.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "Preencha o ID da Empresa");
+				} else {
+					int id = Integer.parseInt(tfIdEmpresa.getText());
+					JOptionPane.showMessageDialog(null, ec.excluiEmpresa(id));
+					
+					tfIdEmpresa.setText("");
+					tfNomeEmpresa.setText("");
+					tfEmail.setText("");
+					tfSenha.setText("");
+					tfNrCNPJ.setText("");
+					
+				}
 				
 			}
 		});

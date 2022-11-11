@@ -1,3 +1,8 @@
+/**Classe de Controller dos objetos do tipo Usuario chamando os metodos do CRUD
+ * @author Luis Felipe
+ * @version 1.0
+ * @since 11/11/2022
+ */
 package fiap.controller;
 
 import java.sql.*;
@@ -6,6 +11,11 @@ import fiap.model.*;
 
 public class UsuarioController {
 	
+	/**Metodo para chamar o método de inserir do DAO
+	* @author Luis Felipe
+	* @param int idUsuario, String nmCompleto, String dsEmail, String dsSenha, String nrCPF, int nrDDI, int nrDDD, int nrTelefone, String stTelefone 
+	* @return String - com o resultado da operação 
+	*/
 	public String insereUsuario(int idUsuario, String nmCompleto, String dsEmail, String dsSenha, String nrCPF, 
 			int nrDDI, int nrDDD, int nrTelefone, String stTelefone) {
 		String resultado, resultado2;
@@ -40,6 +50,12 @@ public class UsuarioController {
 		
 		return resultado;	
 	}
+	
+	/**Metodo para chamar o método de alterar do DAO
+	* @author Luis Felipe
+	* @param int idUsuario, String nmCompleto, String dsEmail, String dsSenha, String nrCPF, int nrDDI, int nrDDD, int nrTelefone, String stTelefone 
+	* @return String - com o resultado da operação 
+	*/
 	public String alteraUsuario(int idUsuario, String nmCompleto, String dsEmail, String dsSenha, String nrCPF, 
 			int nrDDI, int nrDDD, int nrTelefone, String stTelefone) {
 		String resultado, resultado2;
@@ -71,6 +87,11 @@ public class UsuarioController {
 		return resultado;	
 	}
 	
+	/**Metodo para chamar o método de excluir do DAO
+	* @author Luis Felipe
+	* @param int idUsuario
+	* @return String - com o resultado da operação 
+	*/
 	public String excluiUsuario(int idUsuario) {
 		String resultado;
 		Connection con = Conexao.abrirConexao();
@@ -86,11 +107,17 @@ public class UsuarioController {
 		return resultado;	
 	}
 	
+	/**Metodo para chamar o método de consulta do DAO
+	* @author Luis Felipe
+	* @param int id
+	* @return List<String> - com a lista com todos os valores da consulta
+	*/
 	public List<String> listaUmUsuario(int id){
 		Connection con = Conexao.abrirConexao();
 		UsuarioDAO usudao = new UsuarioDAO(con);
 		List<String> lista = usudao.listarUm(id);
 		if (lista != null) {
+			Conexao.fecharConexao(con);
 			return lista;
 		}
 		Conexao.fecharConexao(con);

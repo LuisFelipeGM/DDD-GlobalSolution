@@ -1,12 +1,20 @@
+/**Classe de Interface GUI Carro
+ * @author Luis Felipe
+ * @version 1.0
+ * @since 11/11/2022
+ */
 package fiap.view;
 
 
 import java.awt.*;
 import java.awt.event.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.*;
 
-import fiap.controller.UsuarioController;
+import fiap.controller.CarroController;
 
 @SuppressWarnings({ "serial", "unused" })
 public class GUICarro extends JPanel{
@@ -22,6 +30,11 @@ public class GUICarro extends JPanel{
 		definirEventos();
 	}
 	
+	/**Metodo para inicializar todos os componentes do GUI Carro
+	* @author Luis Felipe
+	* @param null 
+	* @return void
+	*/
 	private void inicializarComponentes() {
 		setLayout(null);
 		setBackground(Color.LIGHT_GRAY);
@@ -105,17 +118,67 @@ public class GUICarro extends JPanel{
 		add(tfDtFabricaco);
 	}
 	
+	/**Metodo para inicializar todos os componentes do GUI Carro
+	* @author Luis Felipe
+	* @param null 
+	* @return void
+	*/
 	private void definirEventos() {
 
 		btPesquisa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				CarroController cc = new CarroController();
+				List<String> dados = new ArrayList<String>();
+				if (tfIdCarro.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "Preencha o ID do Carro");
+					tfIdCarro.requestFocus();
+				} else {
+					int id = Integer.parseInt(tfIdCarro.getText());
+					dados = cc.listaUmCarro(id);
+					if (dados.isEmpty() == false) {
+						tfIdEmpresa.setText(dados.get(1));
+						tfNrSerie.setText(dados.get(5));
+						tfMarca.setText(dados.get(2));
+						tfModelo.setText(dados.get(3));
+						tfNrPlaca.setText(dados.get(4));
+						tfDtFabricaco.setText(dados.get(6));
+					} else {
+						JOptionPane.showMessageDialog(null, "Registro inexistente");
+					}
+				}
 				
 			}
 		});
 		
 		btNovo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				CarroController cc = new CarroController();
+				if (tfIdCarro.getText().equals("") || tfIdEmpresa.getText().equals("") || 
+						tfNrSerie.getText().equals("") || tfMarca.getText().equals("") || 
+						tfModelo.getText().equals("") || tfNrPlaca.getText().equals("") || 
+						tfDtFabricaco.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "Preencha todos os campos");
+				} else {
+					int idCarro = Integer.parseInt(tfIdCarro.getText());
+					int idEmpresa = Integer.parseInt(tfIdEmpresa.getText());
+					int numSerie = Integer.parseInt(tfNrSerie.getText());
+					String aux = tfDtFabricaco.getText();
+					String data = aux.substring(6, 10) + "-";
+					data += aux.substring(3, 5) + "-";
+					data += aux.substring(0, 2);
+					LocalDate dataF = LocalDate.parse(data);
+					
+					JOptionPane.showMessageDialog(null, cc.insereCarro(idCarro, idEmpresa, numSerie, tfMarca.getText(),
+							tfModelo.getText(), tfNrPlaca.getText(), dataF));
+					
+					tfIdCarro.setText("");
+					tfIdEmpresa.setText("");
+					tfNrSerie.setText("");
+					tfMarca.setText("");
+					tfModelo.setText("");
+					tfNrPlaca.setText("");
+					tfDtFabricaco.setText("");
+				}
 				
 				
 			}
@@ -123,14 +186,55 @@ public class GUICarro extends JPanel{
 		
 		btAtualiza.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				CarroController cc = new CarroController();
+				if (tfIdCarro.getText().equals("") || tfIdEmpresa.getText().equals("") || 
+						tfNrSerie.getText().equals("") || tfMarca.getText().equals("") || 
+						tfModelo.getText().equals("") || tfNrPlaca.getText().equals("") || 
+						tfDtFabricaco.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "Preencha todos os campos");
+				} else {
+					int idCarro = Integer.parseInt(tfIdCarro.getText());
+					int idEmpresa = Integer.parseInt(tfIdEmpresa.getText());
+					int numSerie = Integer.parseInt(tfNrSerie.getText());
+					String aux = tfDtFabricaco.getText();
+					String data = aux.substring(6, 10) + "-";
+					data += aux.substring(3, 5) + "-";
+					data += aux.substring(0, 2);
+					LocalDate dataF = LocalDate.parse(data);
+					
+					JOptionPane.showMessageDialog(null, cc.alteraCarro(idCarro, idEmpresa, numSerie, tfMarca.getText(),
+							tfModelo.getText(), tfNrPlaca.getText(), dataF));
+					
+					tfIdCarro.setText("");
+					tfIdEmpresa.setText("");
+					tfNrSerie.setText("");
+					tfMarca.setText("");
+					tfModelo.setText("");
+					tfNrPlaca.setText("");
+					tfDtFabricaco.setText("");
+				}
 				
 			}
 		});
 		
 		btApaga.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				CarroController cc = new CarroController();
+				if (tfIdCarro.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "Preencha o ID do Carro");
+				} else {
+					int idCarro = Integer.parseInt(tfIdCarro.getText());
+					
+					JOptionPane.showMessageDialog(null, cc.excluiCarro(idCarro));
+					
+					tfIdCarro.setText("");
+					tfIdEmpresa.setText("");
+					tfNrSerie.setText("");
+					tfMarca.setText("");
+					tfModelo.setText("");
+					tfNrPlaca.setText("");
+					tfDtFabricaco.setText("");
+				}
 			}
 		});
 		

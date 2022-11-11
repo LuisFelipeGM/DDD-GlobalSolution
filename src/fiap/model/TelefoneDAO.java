@@ -1,3 +1,8 @@
+/**Classe para o CRUD dos objetos do tipo Telefone no Banco de Dados utilizando a classe Conexao
+ * @author Luis Felipe
+ * @version 1.0
+ * @since 11/11/2022
+ */
 package fiap.model;
 
 import java.sql.*;
@@ -21,6 +26,11 @@ public class TelefoneDAO implements IDAO{
 		this.con = con;
 	}
 	
+	/**Metodo para inserir um objeto Telefone no Banco de dados
+	* @author Luis Felipe
+	* @param null
+	* @return String - com o resultado da operação 
+	*/
 	public String inserir(Object obj) {
 		telefone = (Telefone) obj;
 		String sql = "INSERT INTO T_GS_TELEFONE (ID_TELEFONE, ID_USUARIO, NR_DDI, NR_DDD, NR_TELEFONE, ST_TELEFONE) "
@@ -44,7 +54,11 @@ public class TelefoneDAO implements IDAO{
 		}
 	}
 	
-	
+	/**Metodo para alterar um objeto Telefone no Banco de dados
+	* @author Luis Felipe
+	* @param null
+	* @return String - com o resultado da operação 
+	*/
 	public String alterar(Object obj) {
 		telefone = (Telefone) obj;
 		String sql = "UPDATE T_GS_TELEFONE SET NR_DDI = ?, NR_DDD = ?, NR_TELEFONE = ?, ST_TELEFONE = ? WHERE ID_TELEFONE = ? ";
@@ -66,6 +80,11 @@ public class TelefoneDAO implements IDAO{
 
 	}
 	
+	/**Metodo para excluir um objeto Telefone no Banco de dados
+	* @author Luis Felipe
+	* @param null
+	* @return String - com o resultado da operação 
+	*/
 	public String excluir(Object obj) {
 		telefone = (Telefone) obj;
 		String sql = "DELETE FROM T_GS_TELEFONE WHERE ID_TELEFONE = ?";
@@ -82,6 +101,11 @@ public class TelefoneDAO implements IDAO{
 		}
 	}
 	
+	/**Metodo para consultar o Banco de Dados e trazer um objeto do tipo Telefone
+	* @author Luis Felipe
+	* @param int - id do objeto no Banco de Dados
+	* @return List<String> - com a lista com todos os valores do objeto
+	*/
 	public List<String> listarUm(int id){
 		String sql = "SELECT * FROM T_GS_USUARIO WHERE ID_USUARIO = ?";
 		List<String> resul = new ArrayList<String>();

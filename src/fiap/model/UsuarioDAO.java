@@ -1,3 +1,8 @@
+/**Classe para o CRUD dos objetos do tipo Usuario no Banco de Dados utilizando a classe Conexao
+ * @author Luis Felipe
+ * @version 1.0
+ * @since 11/11/2022
+ */
 package fiap.model;
 
 import java.sql.*;
@@ -21,6 +26,11 @@ public class UsuarioDAO implements IDAO{
 		this.con = con;
 	}
 	
+	/**Metodo para inserir um objeto Usuario no Banco de dados
+	* @author Luis Felipe
+	* @param null
+	* @return String - com o resultado da operação 
+	*/
 	public String inserir(Object obj) {
 		usuario = (Usuario) obj;
 		String sql = "INSERT INTO T_GS_USUARIO (ID_USUARIO, NM_COMPLETO, DS_EMAIL, DS_SENHA, NR_CPF) "
@@ -43,7 +53,11 @@ public class UsuarioDAO implements IDAO{
 		}
 	}
 	
-	
+	/**Metodo para alterar um objeto Usuario no Banco de dados
+	* @author Luis Felipe
+	* @param null
+	* @return String - com o resultado da operação 
+	*/
 	public String alterar(Object obj) {
 		usuario = (Usuario) obj;
 		String sql = "UPDATE T_GS_USUARIO SET NM_COMPLETO = ?, DS_EMAIL = ?, DS_SENHA = ?, NR_CPF = ? WHERE ID_USUARIO = ? ";
@@ -65,6 +79,11 @@ public class UsuarioDAO implements IDAO{
 
 	}
 	
+	/**Metodo para excluir um objeto Usuario no Banco de dados
+	* @author Luis Felipe
+	* @param null
+	* @return String - com o resultado da operação 
+	*/
 	public String excluir(Object obj) {
 		usuario = (Usuario) obj;
 		String sql = "DELETE FROM T_GS_USUARIO WHERE ID_USUARIO = ?";
@@ -81,6 +100,11 @@ public class UsuarioDAO implements IDAO{
 		}
 	}
 	
+	/**Metodo para consultar o Banco de Dados e trazer um objeto do tipo Usuario
+	* @author Luis Felipe
+	* @param int - id do objeto no Banco de Dados
+	* @return String - com o resultado da operação 
+	*/
 	public List<String> listarUm(int id){
 		String sql = "SELECT U.ID_USUARIO, U.NM_COMPLETO, U.DS_EMAIL, U.DS_SENHA, U.NR_CPF, "
 				+ "TEL.NR_DDD, TEL.NR_DDI, TEL.NR_TELEFONE, TEL.ST_TELEFONE "

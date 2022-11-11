@@ -1,11 +1,18 @@
+/**Classe de Interface GUI Motor
+ * @author Luis Felipe
+ * @version 1.0
+ * @since 11/11/2022
+ */
 package fiap.view;
 
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.*;
 
-import fiap.controller.EmpresaController;
+import fiap.controller.MotorController;
 
 @SuppressWarnings({ "serial", "unused" })
 public class GUIMotor extends JPanel{
@@ -19,6 +26,11 @@ public class GUIMotor extends JPanel{
 		definirEventos();
 	}
 	
+	/**Metodo para inicializar todos os componentes do GUI Motor
+	* @author Luis Felipe
+	* @param null 
+	* @return void
+	*/
 	private void inicializarComponentes() {
 		setLayout(null);
 		setBackground(Color.LIGHT_GRAY);
@@ -76,28 +88,88 @@ public class GUIMotor extends JPanel{
 
 		btPesquisa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				
+				MotorController mc = new MotorController();
+				List<String> dados = new ArrayList<String>();
+				if (tfIdMotor.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "Preencha o ID do Motor");
+					tfIdMotor.requestFocus();
+				} else {
+					int id = Integer.parseInt(tfIdMotor.getText());
+					dados = mc.listaUmMotor(id);
+					if (dados.isEmpty() == false) {
+						tfIdInfoCarro.setText(dados.get(1));
+						tfMotorVidaUtil.setText(dados.get(2));
+					} else {
+						JOptionPane.showMessageDialog(null, "Registro inexistente");
+					}
+				}
 			}
 		});
 		
 		btNovo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				MotorController mc = new MotorController();
+				if (tfIdMotor.getText().equals("") || tfIdInfoCarro.getText().equals("") || 
+						tfMotorVidaUtil.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "Preencha todos os campos");
+				} else {
+					int idMotor = Integer.parseInt(tfIdMotor.getText());
+					int idInfoCarro = Integer.parseInt(tfIdInfoCarro.getText());
+					int MotorVidaUtil = Integer.parseInt(tfMotorVidaUtil.getText());
+					
+					JOptionPane.showMessageDialog(null, mc.insereMotor(idMotor, idInfoCarro, MotorVidaUtil));
+					
+					tfIdMotor.setText("");
+					tfIdInfoCarro.setText("");
+					tfMotorVidaUtil.setText("");
+
+				}
 				
 			}
 		});
 		
 		btAtualiza.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				MotorController mc = new MotorController();
+				if (tfIdMotor.getText().equals("") || tfIdInfoCarro.getText().equals("") || 
+						tfMotorVidaUtil.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "Preencha todos os campos");
+				} else {
+					int idMotor = Integer.parseInt(tfIdMotor.getText());
+					int idInfoCarro = Integer.parseInt(tfIdInfoCarro.getText());
+					int MotorVidaUtil = Integer.parseInt(tfMotorVidaUtil.getText());
+					
+					JOptionPane.showMessageDialog(null, mc.alteraMotor(idMotor, idInfoCarro, MotorVidaUtil));
+					
+					tfIdMotor.setText("");
+					tfIdInfoCarro.setText("");
+					tfMotorVidaUtil.setText("");
+
+				}
 				
 			}
 		});
 		
+		/**Metodo para definir os eventos do GUI Motor
+		* @author Luis Felipe
+		* @param null 
+		* @return void
+		*/
 		btApaga.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				MotorController mc = new MotorController();
+				if (tfIdMotor.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "Preencha o ID do Motor");
+				} else {
+					int idMotor = Integer.parseInt(tfIdMotor.getText());
+					
+					JOptionPane.showMessageDialog(null, mc.excluiMotor(idMotor));
+					
+					tfIdMotor.setText("");
+					tfIdInfoCarro.setText("");
+					tfMotorVidaUtil.setText("");
+
+				}
 			}
 		});
 		

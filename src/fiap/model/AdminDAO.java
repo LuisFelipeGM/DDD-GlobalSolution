@@ -1,3 +1,8 @@
+/**Classe para o CRUD dos objetos do tipo Admin no Banco de Dados utilizando a classe Conexao
+ * @author Luis Felipe
+ * @version 1.0
+ * @since 11/11/2022
+ */
 package fiap.model;
 
 import java.sql.*;
@@ -21,6 +26,11 @@ public class AdminDAO implements IDAO{
 		this.con = con;
 	}
 	
+	/**Metodo para inserir um objeto Admin no Banco de dados
+	* @author Luis Felipe
+	* @param null
+	* @return String - com o resultado da operação 
+	*/
 	public String inserir(Object obj) {
 		admin = (Admin) obj;
 		String sql = "INSERT INTO T_GS_ADMIN (ID_ADMIN, NM_ADMIN, DS_EMAIL, DS_SENHA) "
@@ -42,7 +52,11 @@ public class AdminDAO implements IDAO{
 		}
 	}
 	
-	
+	/**Metodo para alterar um objeto Admin no Banco de dados
+	* @author Luis Felipe
+	* @param null
+	* @return String - com o resultado da operação 
+	*/
 	public String alterar(Object obj) {
 		admin = (Admin) obj;
 		String sql = "UPDATE T_GS_ADMIN SET NM_ADMIN = ?, DS_EMAIL = ?, DS_SENHA = ? WHERE ID_ADMIN = ? ";
@@ -62,7 +76,11 @@ public class AdminDAO implements IDAO{
 		}
 
 	}
-	
+	/**Metodo para excluir um objeto Admin no Banco de dados
+	* @author Luis Felipe
+	* @param null
+	* @return String - com o resultado da operação 
+	*/
 	public String excluir(Object obj) {
 		admin = (Admin) obj;
 		String sql = "DELETE FROM T_GS_ADMIN WHERE ID_ADMIN = ?";
@@ -79,6 +97,11 @@ public class AdminDAO implements IDAO{
 		}
 	}
 	
+	/**Metodo para consultar o Banco de Dados e trazer um objeto do tipo Admin
+	* @author Luis Felipe
+	* @param int - id do objeto no Banco de Dados
+	* @return List<String> - com a lista com todos os valores do objeto
+	*/
 	public List<String> listarUm(int id){
 		String sql = "SELECT * FROM T_GS_ADMIN WHERE ID_ADMIN = ?";
 		List<String> resul = new ArrayList<String>();

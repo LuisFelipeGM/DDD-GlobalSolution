@@ -1,11 +1,18 @@
+/**Classe de Interface GUI Bateria
+ * @author Luis Felipe
+ * @version 1.0
+ * @since 11/11/2022
+ */
 package fiap.view;
 
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.*;
 
-import fiap.controller.EmpresaController;
+import fiap.controller.BateriaController;
 
 @SuppressWarnings({ "serial", "unused" })
 public class GUIBateria extends JPanel{
@@ -19,6 +26,11 @@ public class GUIBateria extends JPanel{
 		definirEventos();
 	}
 	
+	/**Metodo para inicializar todos os componentes do GUI Bateria
+	* @author Luis Felipe
+	* @param null 
+	* @return void
+	*/
 	private void inicializarComponentes() {
 		setLayout(null);
 		setBackground(Color.LIGHT_GRAY);
@@ -79,32 +91,96 @@ public class GUIBateria extends JPanel{
 
 	}
 	
+	/**Metodo para inicializar todos os componentes do GUI Bateria
+	* @author Luis Felipe
+	* @param null 
+	* @return void
+	*/
 	private void definirEventos() {
 
 		btPesquisa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				BateriaController bc = new BateriaController();
+				List<String> dados = new ArrayList<String>();
+				if (tfIdBateria.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "Preencha o ID da Bateria");
+					tfIdBateria.requestFocus();
+				} else {
+					int idBateria = Integer.parseInt(tfIdBateria.getText());
+					dados = bc.listaUmaBateria(idBateria);
+					if (dados.isEmpty() == false) {
+						tfIdInfoCarro.setText(dados.get(1));
+						tfBateriaCarga.setText(dados.get(2));
+						tfBateriaVidaUtil.setText(dados.get(3));
+					} else {
+						JOptionPane.showMessageDialog(null, "Registro inexistente");
+					}
+				}
 				
 			}
 		});
 		
 		btNovo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				BateriaController bc = new BateriaController();
+				if (tfIdBateria.getText().equals("") || tfIdInfoCarro.getText().equals("") || 
+						tfBateriaCarga.getText().equals("") || tfBateriaVidaUtil.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "Preencha todos os campos");
+				} else {
+					int idBateria = Integer.parseInt(tfIdBateria.getText());
+					int idInfoCarro = Integer.parseInt(tfIdInfoCarro.getText());
+					int BateriaCarga = Integer.parseInt(tfBateriaCarga.getText());
+					int BateriaVidaUtil = Integer.parseInt(tfBateriaVidaUtil.getText());
+					
+					JOptionPane.showMessageDialog(null, bc.insereBateria(idBateria, idInfoCarro, BateriaCarga, BateriaVidaUtil));
+					
+					tfIdBateria.setText("");
+					tfIdInfoCarro.setText("");
+					tfBateriaCarga.setText("");
+					tfBateriaVidaUtil.setText("");
+				}
 				
 			}
 		});
 		
 		btAtualiza.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				BateriaController bc = new BateriaController();
+				if (tfIdBateria.getText().equals("") || tfIdInfoCarro.getText().equals("") || 
+						tfBateriaCarga.getText().equals("") || tfBateriaVidaUtil.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "Preencha todos os campos");
+				} else {
+					int idBateria = Integer.parseInt(tfIdBateria.getText());
+					int idInfoCarro = Integer.parseInt(tfIdInfoCarro.getText());
+					int BateriaCarga = Integer.parseInt(tfBateriaCarga.getText());
+					int BateriaVidaUtil = Integer.parseInt(tfBateriaVidaUtil.getText());
+					
+					JOptionPane.showMessageDialog(null, bc.alteraBateria(idBateria, idInfoCarro, BateriaCarga, BateriaVidaUtil));
+					
+					tfIdBateria.setText("");
+					tfIdInfoCarro.setText("");
+					tfBateriaCarga.setText("");
+					tfBateriaVidaUtil.setText("");
+				}
 				
 			}
 		});
 		
 		btApaga.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				BateriaController bc = new BateriaController();
+				if (tfIdBateria.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "Preencha o ID da Bateria");
+				} else {
+					int idBateria = Integer.parseInt(tfIdBateria.getText());
+					
+					JOptionPane.showMessageDialog(null, bc.excluiBateria(idBateria));
+					
+					tfIdBateria.setText("");
+					tfIdInfoCarro.setText("");
+					tfBateriaCarga.setText("");
+					tfBateriaVidaUtil.setText("");
+				}
 			}
 		});
 		

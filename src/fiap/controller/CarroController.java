@@ -1,3 +1,8 @@
+/**Classe de Controller dos objetos do tipo Carro chamando os metodos do CRUD
+ * @author Luis Felipe
+ * @version 1.0
+ * @since 11/11/2022
+ */
 package fiap.controller;
 
 import java.sql.*;
@@ -7,6 +12,11 @@ import fiap.model.*;
 
 public class CarroController {
 	
+	/**Metodo para chamar o método de inserir do DAO
+	* @author Luis Felipe
+	* @param int idCarro, int idEmpresa, int nrSerie, String nmMarca, String nmModelo, String nrPlaca, LocalDate dtFabricacao
+	* @return String - com o resultado da operação 
+	*/
 	public String insereCarro(int idCarro, int idEmpresa, int nrSerie, String nmMarca, String nmModelo, String nrPlaca,
 			LocalDate dtFabricacao) {
 		String resultado;
@@ -25,6 +35,11 @@ public class CarroController {
 		return resultado;	
 	}
 	
+	/**Metodo para chamar o método de alterar do DAO
+	* @author Luis Felipe
+	* @param int idCarro, int idEmpresa, int nrSerie, String nmMarca, String nmModelo, String nrPlaca, LocalDate dtFabricacao
+	* @return String - com o resultado da operação 
+	*/
 	public String alteraCarro(int idCarro, int idEmpresa, int nrSerie, String nmMarca, String nmModelo, String nrPlaca,
 			LocalDate dtFabricacao) {
 		String resultado;
@@ -43,6 +58,11 @@ public class CarroController {
 		return resultado;	
 	}
 	
+	/**Metodo para chamar o método de excluir do DAO
+	* @author Luis Felipe
+	* @param int idCarro
+	* @return String - com o resultado da operação 
+	*/
 	public String excluiCarro(int idCarro) {
 		String resultado;
 		Connection con = Conexao.abrirConexao();
@@ -54,11 +74,17 @@ public class CarroController {
 		return resultado;	
 	}
 	
+	/**Metodo para chamar o método de consulta do DAO
+	* @author Luis Felipe
+	* @param int id
+	* @return List<String> - com a lista com todos os valores da consulta
+	*/
 	public List<String> listaUmCarro(int id){
 		Connection con = Conexao.abrirConexao();
 		CarroDAO cardao = new CarroDAO(con);
 		List<String> lista = cardao.listarUm(id);
 		if (lista != null) {
+			Conexao.fecharConexao(con);
 			return lista;
 		}
 		Conexao.fecharConexao(con);
