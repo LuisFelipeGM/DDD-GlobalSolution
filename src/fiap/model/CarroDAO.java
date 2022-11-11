@@ -54,7 +54,7 @@ public class CarroDAO implements IDAO {
 	
 	public String alterar(Object obj) {
 		carro = (Carro) obj;
-		String sql = "UPDATE T_GS_CARRO SET ID_EMPRESA = ?, NM_MARCA = ?, NM_MODELO = ?, NR_PLACA = ?, NR_SERIE = ? "
+		String sql = "UPDATE T_GS_CARRO SET ID_EMPRESA = ?, NM_MARCA = ?, NM_MODELO = ?, NR_PLACA = ?, NR_SERIE = ?, "
 				+ "DT_FABRICACAO = TO_DATE(?, 'DD/MM/YYYY') WHERE ID_CARRO = ? ";
 		try {
 			// Transformando o LocalDate em String para mandar para o Banco de Dados
@@ -97,7 +97,7 @@ public class CarroDAO implements IDAO {
 	}
 	
 	public List<String> listarUm(int id){
-		String sql = "SELECT ID_CARRO, ID_EMPRESA, NM_MARCA, NM_MODELO, NR_PLACA, NR_SERIE"
+		String sql = "SELECT ID_CARRO, ID_EMPRESA, NM_MARCA, NM_MODELO, NR_PLACA, NR_SERIE, "
 				+ "TO_CHAR(DT_FABRICACAO, 'DD/MM/YYYY') DT_FABRICACAO FROM T_GS_CARRO WHERE ID_CARRO = ?";
 		List<String> resul = new ArrayList<String>();
 		try {
